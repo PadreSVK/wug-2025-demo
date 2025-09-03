@@ -15,7 +15,7 @@ metadata:
       icon: github
 spec:
   owner: daas
-  # Actual state, will be migrated to own resource
+  # Actual state - our automation use right now this. It will be replaced by `kind: Resource, type: git-repository`
   repos:
     - checkout-demo-api
     - checkout-demo-web
