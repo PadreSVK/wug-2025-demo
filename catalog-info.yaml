@@ -65,7 +65,7 @@ spec:
   consumesApis:
     - api:checkout-demo-api-openapi
   dependsOn:
-    - resource:checkout-repository
+    - resource:checkout-demo-repository
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -81,7 +81,7 @@ spec:
   consumesApis:
     - api:checkout-demo-api-openapi
   dependsOn:
-    - resource:checkout-mobile-repository
+    - resource:checkout-demo-mobile-repository
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -99,7 +99,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: checkout-repository
+  name: checkout-demo-repository
   description: Git repository for checkout-demo Service
 spec:
   type: git-repository
@@ -111,7 +111,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: checkout-mobile-repository
+  name: checkout-demo-mobile-repository
   description: Git repository for checkout-demo Service
 spec:
   type: git-repository
