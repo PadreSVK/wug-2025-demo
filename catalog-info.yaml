@@ -45,9 +45,9 @@ spec:
   lifecycle: production
   system: checkout
   providesApis:
-    - checkout-api-openapi
+    - api:checkout-api-openapi
   dependsOn:
-    - checkout-database
+    - resource:checkout-database
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -61,7 +61,7 @@ spec:
   lifecycle: production
   system: checkout
   consumesApis:
-    - checkout-api-openapi
+    - api:checkout-api-openapi
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -75,7 +75,7 @@ spec:
   lifecycle: production
   system: checkout
   consumesApis:
-    - checkout-api-openapi
+    - api:checkout-api-openapi
 
 ---
 apiVersion: backstage.io/v1alpha1
