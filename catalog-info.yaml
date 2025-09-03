@@ -1,0 +1,90 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: checkout
+  description: System that is responsible for the checkout process.
+  links:
+    - url: https://github.com/nonexistingorg/nonexisting-repo1
+      title: checkout-api
+      icon: github
+    - url: https://github.com/nonexistingorg/nonexisting-repo2
+      title: checkout-web
+      icon: github
+    - url: https://github.com/nonexistingorg/nonexisting-repo3
+      title: checkout-mobile
+      icon: github
+spec:
+  owner: daas
+  repos:
+    - checkout-api
+    - checkout-web
+    - checkout-mobile
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: checkout-api-openapi
+  description: Provides API for Checkout Service
+spec:
+  type: openapi
+  lifecycle: production
+  owner: daas
+  system: checkout
+  definition: "https://raw.githubusercontent.com/backstage/backstage/refs/heads/master/plugins/catalog-backend/src/schema/openapi.yaml"
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-api
+  description: Checkout web API.
+spec:
+  type: dotnet-web-api
+  owner: daas
+  lifecycle: production
+  system: checkout
+  providesApis:
+    - checkout-api-openapi
+  dependsOn:
+    - checkout-database
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-web
+  description: React web application
+spec:
+  type: react-web-application
+  owner: daas
+  lifecycle: production
+  system: checkout
+  consumesApis:
+    - checkout-api-openapi
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-mobile
+  description: React native mobile application
+spec:
+  type: react-native-mobile-application
+  owner: daas
+  lifecycle: production
+  system: checkout
+  consumesApis:
+    - checkout-api-openapi
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: checkout-database
+  description: Database Access for Checkout Service
+spec:
+  type: mssql-database-access
+  owner: database-team
+  lifecycle: production
+  system: checkout
