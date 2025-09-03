@@ -1,90 +1,90 @@
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: checkout
-  description: System that is responsible for the checkout process.
+  name: checkout-demo
+  description: System that is responsible for the checkout-demo process.
   links:
     - url: https://github.com/nonexistingorg/nonexisting-repo1
-      title: checkout-api
+      title: checkout-demo-api
       icon: github
     - url: https://github.com/nonexistingorg/nonexisting-repo2
-      title: checkout-web
+      title: checkout-demo-web
       icon: github
     - url: https://github.com/nonexistingorg/nonexisting-repo3
-      title: checkout-mobile
+      title: checkout-demo-mobile
       icon: github
 spec:
   owner: daas
   repos:
-    - checkout-api
-    - checkout-web
-    - checkout-mobile
+    - checkout-demo-api
+    - checkout-demo-web
+    - checkout-demo-mobile
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: checkout-api-openapi
-  description: Provides API for Checkout Service
+  name: checkout-demo-api-openapi
+  description: Provides API for checkout-demo Service
 spec:
   type: openapi
   lifecycle: production
   owner: daas
-  system: checkout
+  system: checkout-demo
   definition: "https://raw.githubusercontent.com/backstage/backstage/refs/heads/master/plugins/catalog-backend/src/schema/openapi.yaml"
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: checkout-api
-  description: Checkout web API.
+  name: checkout-demo-api
+  description: checkout-demo web API.
 spec:
   type: dotnet-web-api
   owner: daas
   lifecycle: production
-  system: checkout
+  system: checkout-demo
   providesApis:
-    - api:checkout-api-openapi
+    - api:checkout-demo-api-openapi
   dependsOn:
-    - resource:checkout-database
+    - resource:checkout-demo-database
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: checkout-web
+  name: checkout-demo-web
   description: React web application
 spec:
   type: react-web-application
   owner: daas
   lifecycle: production
-  system: checkout
+  system: checkout-demo
   consumesApis:
-    - api:checkout-api-openapi
+    - api:checkout-demo-api-openapi
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: checkout-mobile
+  name: checkout-demo-mobile
   description: React native mobile application
 spec:
   type: react-native-mobile-application
   owner: daas
   lifecycle: production
-  system: checkout
+  system: checkout-demo
   consumesApis:
-    - api:checkout-api-openapi
+    - api:checkout-demo-api-openapi
 
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  name: checkout-database
-  description: Database Access for Checkout Service
+  name: checkout-demo-database
+  description: Database Access for checkout-demo Service
 spec:
   type: mssql-database-access
   owner: database-team
   lifecycle: production
-  system: checkout
+  system: checkout-demo
