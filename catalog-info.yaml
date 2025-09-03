@@ -15,6 +15,7 @@ metadata:
       icon: github
 spec:
   owner: daas
+  # Actual state, will be migrated to own resource
   repos:
     - checkout-demo-api
     - checkout-demo-web
@@ -48,6 +49,7 @@ spec:
     - api:checkout-demo-api-openapi
   dependsOn:
     - resource:checkout-demo-database
+    - resource:checkout-demo-repository
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -62,6 +64,8 @@ spec:
   system: checkout-demo
   consumesApis:
     - api:checkout-demo-api-openapi
+  dependsOn:
+    - resource:checkout-repository
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -76,6 +80,8 @@ spec:
   system: checkout-demo
   consumesApis:
     - api:checkout-demo-api-openapi
+  dependsOn:
+    - resource:checkout-mobile-repository
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -86,5 +92,29 @@ metadata:
 spec:
   type: mssql-database-access
   owner: database-team
+  lifecycle: production
+  system: checkout-demo
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: checkout-repository
+  description: Git repository for checkout-demo Service
+spec:
+  type: git-repository
+  owner: daas
+  lifecycle: production
+  system: checkout-demo
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: checkout-mobile-repository
+  description: Git repository for checkout-demo Service
+spec:
+  type: git-repository
+  owner: daas
   lifecycle: production
   system: checkout-demo
